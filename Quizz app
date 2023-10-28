@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quizzapp/questions.dart';
 
+
 void main() {
   runApp(const MyApp());
 }
@@ -188,9 +189,11 @@ return AlertDialog(actions: [
   );
 }
 }
-
-
-  
+}
+class questions{
+  String que;
+  bool ans;
+  questions(this.que,this.ans);
 }
 
 
