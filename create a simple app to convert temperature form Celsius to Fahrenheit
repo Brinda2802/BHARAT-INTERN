@@ -1,0 +1,93 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(TemperatureConverterApp());
+}
+
+class TemperatureConverterApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Temperature Converter',
+      theme: ThemeData(
+        primaryColor: Colors.blue,
+      ),
+      home: TemperatureConverterScreen(),
+    );
+  }
+}
+
+class TemperatureConverterScreen extends StatefulWidget {
+  @override
+  _TemperatureConverterScreenState createState() =>
+      _TemperatureConverterScreenState();
+}
+
+class _TemperatureConverterScreenState extends State<TemperatureConverterScreen> {
+  TextEditingController celsiusController = TextEditingController();
+  String result = '';
+
+  void convertTemperature() {
+    if (celsiusController.text.isNotEmpty) {
+      double celsius = double.parse(celsiusController.text);
+      double fahrenheit = (celsius * 9 / 5) + 32;
+      setState(() {
+        result = 'Result: ${fahrenheit.toStringAsFixed(2)} °F';
+      });
+    } else {
+      setState(() {
+        result = 'Please enter a valid value.';
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Temperature Converter"),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Celsius to Fahrenheit',
+              style: TextStyle(
+                fontSize: 24.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 20),
+            Container(
+              width: 200,
+              child: TextField(
+                controller: celsiusController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(labelText: 'Enter Celsius'),
+              ),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.blue,
+                onPrimary: Colors.white,
+              ),
+              onPressed: convertTemperature,
+              child: Text('Convert'),
+            ),
+            SizedBox(height: 20),
+            Text(
+              result,
+              style: TextStyle(
+                fontSize: 24.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
